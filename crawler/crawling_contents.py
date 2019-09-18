@@ -5,7 +5,7 @@ import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "we_r_bnb.settings")
 import django
 django.setup()
-from magazines.models import Magazines, Contents
+from magazines.models import Magazines, Contents, ContentType
 
 
 url_list = []
@@ -24,6 +24,7 @@ for url in url_list:
 
     for content in contents:
         description = []
+
         if content['content_type'] == 'why' or content['content_type'] == 'location':
             description_dict = ast.literal_eval(content['description'])
             headers = description_dict['header'].split("\n")
@@ -36,16 +37,19 @@ for url in url_list:
 
             for t in description_dict['text']:
                 t = t.split("/n/n")
+
                 for text in t:
                     description.append(text)
     
-            content_data = Contents(content_type = content['content_type'],
+            content_data = Contents(
+                    content_type = ContentType.objects.get(c_type=content['content_type']),
                     header = headers,
                     description = description,
                     image_url = image_url,
                     magazine = Magazines.objects.get(identifier=res_json['identifier'])
                     )
             content_data.save()
+
         elif content['content_type'] == 'people':
             description_dict = ast.literal_eval(content['description'])
             headers = description_dict['header'].split("\n")
@@ -53,14 +57,15 @@ for url in url_list:
 
             for t in description_dict['text']:
                 t = t.split("/n/n")
+
                 for text in t:
                     description.append(text)
     
-            content_data = Contents(content_type = content['content_type'],
+            content_data = Contents(
+                    content_type = ContentType.objects.get(c_type=content['content_type']),
                     header = headers,
                     description = description,
                     image_url = image_url,
                     magazine = Magazines.objects.get(identifier=res_json['identifier'])
                     )
             content_data.save()
-

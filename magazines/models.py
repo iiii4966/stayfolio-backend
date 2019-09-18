@@ -19,8 +19,14 @@ class Magazines(models.Model):
     class Meta:
         db_table = 'magazines'
 
+class ContentType(models.Model):
+    c_type = models.CharField(max_length=50)
+
+    class Meta:
+        db_table = 'content_type'
+
 class Contents(models.Model):
-    content_type = models.CharField(max_length=100)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)  
     header = models.CharField(max_length=100,)
     description = models.TextField()
     image_url = models.URLField(max_length=400, null=True)

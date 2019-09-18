@@ -20,16 +20,16 @@ for url in url_list:
     res = req.urlopen(url).read().decode('utf-8')
     res_json = json.loads(res)
     magazine = Magazines(
-                    title = res_json['title'],
-                    title_image_url = url_pre + res_json['title_image_url'],
-                    title_text_image_url = url_pre + res_json['title_text_image_url'],
-                    identifier = res_json['identifier'],
-                    description = res_json['description'],
-                    intro = res_json['intro'],
-                    main_image_url = url_pre + res_json['main_image_url'],
-                    footer_image_url = url_pre + res_json['footer_image_url'],
-                    link_btn_title = res_json['link_btn_title'],
-                    link_btn_url = res_json['link_btn_url'],
-                    logo_url = url_pre + res_json['logo_url'],
-                    )
+            title = res_json['title'],
+            title_image_url = url_pre + res_json['title_image_url'],
+            title_text_image_url = url_pre + res_json['title_text_image_url'],
+            identifier = res_json['identifier'],
+            description = res_json['description'],
+            intro = res_json['intro'],
+            main_image_url = url_pre + res_json['main_image_url'],
+            footer_image_url = url_pre + res_json['footer_image_url'],
+            link_btn_title = res_json['link_btn_title'],
+            link_btn_url = res_json['link_btn_url'],
+            logo_url = url_pre + res_json['logo_url'],
+            )
     magazine.save()
