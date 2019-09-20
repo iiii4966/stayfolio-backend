@@ -14,11 +14,11 @@ class PlaceGetTest(TestCase):
     features  = ['barbeque','open_air_bath','breakfast']
     
     def setUp(self):
-        new_styles    = []
-        new_targets   = []
-        new_amenities = []
-        new_tourspots = []
-        new_features  = []
+        new_styles    = [ ]
+        new_targets   = [ ]
+        new_amenities = [ ]
+        new_tourspots = [ ]
+        new_features  = [ ]
         for style, target, amenity, tourspot, feature in zip(self.styles, self.targets, self.amenities, self.tourspots, self.features):
             new_styles.append(Style.objects.create(styles = style))
             new_targets.append(Target.objects.create(targets = target))
@@ -41,9 +41,11 @@ class PlaceGetTest(TestCase):
                                    facebook      = 'dolchae',
                                    instagram     = 'dolchae',
                                    phone         = '0504-0904-2346',
-                                   price_min     = '150000',
-                                   price_max     = '300000',
-                                   room_capacity = '2',
+                                   price_min     = '150000.0',
+                                   price_max     = '300000.0',
+                                   persons_min   = 1,
+                                   persons_max   = 5,
+                                   room_capacity = 2,
                                    check_in      = '16:00',
                                    check_out     = '11:00',
                     )
@@ -77,9 +79,9 @@ class PlaceGetTest(TestCase):
                                  'facebook'      : 'dolchae',
                                  'instagram'     : 'dolchae',
                                  'phone'         : '0504-0904-2346',
-                                 'price_min'     : '150000',
-                                 'price_max'     : '300000',
-                                 'room_capacity' : '2',
+                                 'price_min'     : '150000.0',
+                                 'price_max'     : '300000.0',
+                                 'room_capacity' : 2,
                                  'check_in'      : '16:00',
                                  'check_out'     : '11:00',
                                  'styles'        : ['빈티지', '아웃도어', '재생건축'],
