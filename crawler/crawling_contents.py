@@ -5,13 +5,14 @@ import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "we_r_bnb.settings")
 import django
 django.setup()
+
 from magazines.models import Magazines, Contents, ContentType
 
 
 url_list = []
 url_api_pre = 'https://www.stayfolio.com/api/v1/magazines/'
-url_details = ['stay-sodo', 'fusion-resort-cam-ranh', 'sohsul53', 'fusion-suites-sai-gon', 'jocheonmasil', 'stay-beyond', 'fusion-resort-phu-quoc', 'hotel-cappuccino', 'Alveolus-Mangwon', 'aroundfollie_magazine', 'owall-hotel', 'nagwonjang', 'ikkoinstay', 'bengdi-1967', 'gagopa-home', 'jocheondaek', 'gurume', 'baguni-hostel-Suncheon', 'hosidam', 'hotel-sohsul', 'mungzip', 'pyeongdae-panorama', 'nookseoul', 'ihwaruae', 'b-ahn', 'goi', 'blindwhale', 'chang-shin-creativehouse', 'Casadelaya', 'framehouse', 'tori-x-kaareklint', 'hotel-shinshin', 'kyung-sung', 'small-house-big-door', 'jun-hanok-guest', 'ma-maison', 'zeroplace', 'onsaka-no-ie', 'Gomsk', 'soohwarim']
-url_pre = 'https://www.stayfolio.com'
+url_details = ['stay-sodo', 'sohsul53', 'jocheonmasil', 'stay-beyond', 'hotel-cappuccino', 'Alveolus-Mangwon', 'aroundfollie_magazine', 'owall-hotel', 'nagwonjang', 'ikkoinstay', 'bengdi-1967', 'gagopa-home', 'jocheondaek', 'gurume', 'baguni-hostel-Suncheon', 'hosidam', 'hotel-sohsul', 'mungzip', 'pyeongdae-panorama', 'nookseoul', 'ihwaruae', 'b-ahn', 'goi', 'blindwhale', 'chang-shin-creativehouse', 'Casadelaya', 'framehouse', 'tori-x-kaareklint', 'hotel-shinshin', 'kyung-sung', 'small-house-big-door', 'jun-hanok-guest', 'ma-maison', 'zeroplace', 'Gomsk', 'soohwarim']
+url_stayfolio = 'https://www.stayfolio.com'
 
 for url_detail in url_details:
     url = url_api_pre + url_detail
@@ -41,14 +42,13 @@ for url in url_list:
                 for text in t:
                     description.append(text)
     
-            content_data = Contents(
-                    content_type = ContentType.objects.get(c_type=content['content_type']),
-                    header = headers,
-                    description = description,
-                    image_url = image_url,
-                    magazine = Magazines.objects.get(identifier=res_json['identifier'])
-                    )
-            content_data.save()
+            Contents(
+                content_type = ContentType.objects.get(c_type = content['content_type']),
+                header       = headers,
+                description  = description,
+                image_url    = image_url,
+                magazine     = Magazines.objects.get(identifier = res_json['identifier'])
+            ).save()
 
         elif content['content_type'] == 'people':
             description_dict = ast.literal_eval(content['description'])
@@ -61,11 +61,10 @@ for url in url_list:
                 for text in t:
                     description.append(text)
     
-            content_data = Contents(
-                    content_type = ContentType.objects.get(c_type=content['content_type']),
-                    header = headers,
-                    description = description,
-                    image_url = image_url,
-                    magazine = Magazines.objects.get(identifier=res_json['identifier'])
-                    )
-            content_data.save()
+            Contents(
+                content_type = ContentType.objects.get(c_type=content['content_type']),
+                header = headers,
+                description = description,
+                image_url = image_url,
+                magazine = Magazines.objects.get(identifier=res_json['identifier'])
+            ).save()
