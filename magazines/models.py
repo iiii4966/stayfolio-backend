@@ -16,6 +16,7 @@ class Magazines(models.Model):
     link_btn_url         = models.URLField(max_length        = 400, null = True)
     logo_url             = models.URLField(max_length        = 400)
     details              = models.CharField(max_length       = 100)
+    place                = models.ForeignKey(Place, on_delete = models.PROTECT)
     created_at           = models.DateTimeField(auto_now_add = True)
     updated_at           = models.DateTimeField(auto_now     = True)
 

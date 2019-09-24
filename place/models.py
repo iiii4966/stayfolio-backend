@@ -42,19 +42,19 @@ class Style(models.Model):
 
 class Target(models.Model):
 	targets = models.CharField(max_length = 100, null = True, unique = True)
-	
+
 	class Meta:
 		db_table = 'target'
 
 class Amenity(models.Model):
 	amenities = models.CharField(max_length = 100, null = True, unique = True)
-	
+
 	class Meta:
 		db_table = 'amenity'
 
 class Tourspot(models.Model):
 	tourspots = models.CharField(max_length = 100, null = True, unique = True)
-	
+
 	class Meta:
 		db_table = 'tourspot'
 
