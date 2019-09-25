@@ -1,5 +1,6 @@
 ## cache 파일
 **/__pycache__
+*.py[cod]
 
 ## 도스 관련 파일
 **/.DS_Store
@@ -77,11 +78,6 @@ coverage.xml
 *.mo
 *.pot
 
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-
 # Flask stuff:
 instance/
 .webassets-cache
@@ -129,3 +125,8 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+## Django
+*.log
+local_settings.py
+db.sqlite3
+.DS_store
