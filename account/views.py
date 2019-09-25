@@ -54,7 +54,7 @@ class LogInView(View):
             exist_account = Accounts.objects.get(email = data['email'])
 
             if bcrypt.checkpw(password.encode('UTF-8'), exist_account.password.encode('UTF-8')):
-                payload = {'user_id':exist_account.id}
+                payload = {'email':exist_account.email}
                 encoded = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
                 return JsonResponse({'access_token': encoded.decode('UTF-8')}, status=200)
