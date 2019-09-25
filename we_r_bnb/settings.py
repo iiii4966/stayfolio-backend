@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django_extensions',
     'corsheaders',
     'account',
     'place',
@@ -154,3 +155,6 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SITE_ID=1
+
+# print SQL queries in shell_plus
+SHELL_PLUS_PRINT_SQL = True
