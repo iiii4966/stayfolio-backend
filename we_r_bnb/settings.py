@@ -1,5 +1,5 @@
 import os
-from . import my_settings
+import my_settings
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -9,14 +9,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = my_settings.SECRET_KEY
-
-# FACEBOOK_LOGIN
-APP_ID = my_settings.APP_ID
-APP_SECRET = my_settings.APP_SECRET
-
-# SMTP
-HOST_PW = my_settings.HOST_PW
+SECRET_KEY = my_settings.SECRET['secret']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -36,6 +29,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'account',
     'place',
+    'pick',
     'magazines',
 ]
 
@@ -147,7 +141,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'bmoon.bizowner@gmail.com'
-EMAIL_HOST_PASSWORD = HOST_PW
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
