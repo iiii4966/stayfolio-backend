@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'account',
     'place',
     'pick',
+    'pick_comment',
     'magazines',
 ]
 
