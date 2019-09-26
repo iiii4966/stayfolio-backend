@@ -14,7 +14,7 @@ def login_required(view_func):
         if access_token:
             try:
                 decoded         = jwt.decode(access_token, SECRET_KEY, algorithm='HS256')
-                email           = decode['email']
+                email           = decoded['email']
                 request.account = Accounts.objects.get(email=email)
             except jwt.DecodeError: 
                 return JsonResponse({'error': 'INVALID_TOKEN'}, status=401)
