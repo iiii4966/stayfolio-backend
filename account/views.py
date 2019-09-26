@@ -9,12 +9,11 @@ from account.utils      import login_required
 from datetime           import timedelta
 from email.mime.text    import MIMEText
 from .models            import Accounts
-from we_r_bnb.settings  import APP_ID, APP_SECRET, SECRET_KEY
+from my_settings        import SECRET
 
 from django.core.mail   import send_mail
 from django.conf        import settings
 from django.http        import HttpResponse, JsonResponse
-from django.shortcuts   import render, redirect
 from django.views       import View
 
 
@@ -57,7 +56,7 @@ class LogInView(View):
 
             if bcrypt.checkpw(password.encode('UTF-8'), exist_account.password.encode('UTF-8')):
                 payload = {'user_id':exist_account.id}
-                encoded = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+                encoded = jwt.encode(payload, SECRET['secret'], algorithm='HS256')
 
                 return JsonResponse({'access_token': encoded.decode('UTF-8')}, status=200)
             
