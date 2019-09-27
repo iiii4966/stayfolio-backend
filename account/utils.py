@@ -10,7 +10,6 @@ from we_r_bnb.settings      import SECRET_KEY
 def login_required(view_func):
     def wrap(self, request, *a, **k):
         access_token = request.headers.get('Authorization', None)
-
         if access_token:
             try:
                 decoded         = jwt.decode(access_token, SECRET_KEY, algorithm='HS256')

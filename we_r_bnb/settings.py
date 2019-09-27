@@ -11,6 +11,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = my_settings.SECRET['secret']
 
+# FACEBOOK_LOGIN
+APP_ID = my_settings.APP_ID
+APP_SECRET = my_settings.APP_SECRET
+
+# SMTP
+#HOST_PW = my_settings.HOST_PW
+>>>>>>> 3927c1d... wip
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -26,12 +34,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django_extensions',
+    'django_prices',
     'corsheaders',
     'account',
     'place',
     'pick',
     'pick_comment',
     'magazines',
+    'booking',
 ]
 
 MIDDLEWARE = [
@@ -41,6 +51,8 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django_babel.middleware.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'we_r_bnb.urls'

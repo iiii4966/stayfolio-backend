@@ -6,4 +6,5 @@ urlpatterns = [
     path('pick_comment',include('pick_comment.urls')),
     path('magazines', include('magazines.urls')),
     path('account', include('account.urls')),
+    path('booking', include('booking.urls')),
 ]
