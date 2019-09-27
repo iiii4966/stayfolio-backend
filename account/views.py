@@ -2,14 +2,13 @@ import bcrypt
 import datetime
 import json
 import jwt
-import pdb
 import smtplib
+import requests
 
-from account.utils      import login_required
 from datetime           import timedelta
 from email.mime.text    import MIMEText
-from .models            import Accounts
-from my_settings        import SECRET
+from .models            import Accounts, SocialPlatform
+from we_r_bnb.settings  import SECRET_KEY
 
 from django.core.mail   import send_mail
 from django.conf        import settings
@@ -55,8 +54,8 @@ class LogInView(View):
             exist_account = Accounts.objects.get(email = data['email'])
 
             if bcrypt.checkpw(password.encode('UTF-8'), exist_account.password.encode('UTF-8')):
-                payload = {'email':exist_account.email}
-                encoded = jwt.encode(payload, SECRET['secret'], algorithm='HS256')
+                payload = {'user_id':exist_account.id}
+                encoded = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
                 return JsonResponse({'access_token': encoded.decode('UTF-8')}, status=200)
             
@@ -64,4 +63,25 @@ class LogInView(View):
                 return JsonResponse({'error': 'INVALID_PASSWORD'}, status=401)
 
         except Accounts.DoesNotExist:
-            return JsonResponse({'error':'INVALID_EMAIL_ADDRESS'}, status=401)
+            return JsonResponse({'error':'INVALUD_EMAIL_ADDRESS'}, status=401)
+
+class FacebookAuthView(View):
+    def post(self, request):
+        data = json.loads(request.body)
+        if not Accounts.objects.filter(email = data['email']).exists():
+            facebook_email = data['email']
+            facebook_name  = data['name']
+            Accounts.objects.create(
+                email = facebook_email,
+                name  = facebook_name,
+                social = SocialPlatform.objects.get(id = 1) 
+            )
+            encoded = jwt.encode({'user_id' : facebook_email}, SECRET_KEY, algorithm = 'HS256')
+            return JsonResponse({'access_token': encoded.decode('UTF-8')}, status = 200)
+        
+        elif Accounts.objects.filter(email = data['email']).exists():
+            facebook_email = data['email']
+            encoded = jwt.encode({'user_id' : facebook_email}, SECRET_KEY, algorithm = 'HS256')
+            return JsonResponse({'access_token': encoded.decode('UTF-8')}, status = 200)
+        else:
+            return JsonResponse({'message':'NO_FB_TOKEN'}, status = 401)

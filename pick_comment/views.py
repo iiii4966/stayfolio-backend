@@ -23,7 +23,7 @@ class PickCommentView(View):
             'pick_title'   : Pick.objects.get(pick_id = comment['pick_id']).title,
             'comment_id'   : comment['id'],
             'content'      : comment['content'],
-            } for comment in comment_data.order_by('updated_at').reverse()[offset:limit]]
+            } for comment in comment_data.order_by('created_at').reverse()[offset:limit]]
 
         return JsonResponse({'total_count' : total_count, 'data' : data}, safe = False, status = 200)
 
